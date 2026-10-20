@@ -36,10 +36,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Setup Pages (自动开启 GitHub Pages)
+      - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
