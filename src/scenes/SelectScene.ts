@@ -5,6 +5,7 @@ import Phaser from 'phaser'
 import { audio } from '../core/audio'
 import { getBest, isUnlocked } from '../core/save'
 import { LEVELS } from '../game/levels'
+import { GAME_VERSION } from './TitleScene'
 
 const GAME_W = 480
 const GAME_H = 800
@@ -102,7 +103,7 @@ export class SelectScene extends Phaser.Scene {
     })
 
     this.add
-      .text(GAME_W / 2, GAME_H - 24, '分数与星星保存在这台设备上', {
+      .text(GAME_W / 2, GAME_H - 24, `分数与星星保存在这台设备上 · ${GAME_VERSION}`, {
         fontFamily: 'Arial, sans-serif',
         fontSize: '14px',
         color: '#a88fa0',

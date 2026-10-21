@@ -8,6 +8,9 @@ import { ensureTextures } from '../game/art'
 const GAME_W = 480
 const GAME_H = 800
 
+/** 游戏版本号：每次发布修复递增，方便确认线上/本地跑的是哪版 */
+export const GAME_VERSION = 'v1.2'
+
 export class TitleScene extends Phaser.Scene {
   constructor() {
     super('title')
@@ -78,7 +81,7 @@ export class TitleScene extends Phaser.Scene {
     this.tweens.add({ targets: start, scale: 1.06, duration: 640, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' })
 
     this.add
-      .text(GAME_W / 2, 730, '支持触屏与键盘 · 建议佩戴耳机', {
+      .text(GAME_W / 2, 730, `支持触屏与键盘 · 建议佩戴耳机 · ${GAME_VERSION}`, {
         fontFamily: 'Arial, sans-serif',
         fontSize: '16px',
         color: '#b37580',
