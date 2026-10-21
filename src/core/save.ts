@@ -30,7 +30,7 @@ export function getBest(level: number): LevelBest | undefined {
   return loadSave().results[level]
 }
 
-/** 记录成绩，返回是否刷新纪录 */
+/** 记录成绩（0 星也记录=视为通关），返回是否刷新纪录 */
 export function recordResult(level: number, score: number, stars: number): boolean {
   const data = loadSave()
   const prev = data.results[level]
@@ -45,10 +45,10 @@ export function recordResult(level: number, score: number, stars: number): boole
   return better
 }
 
-/** 第 level 关是否已解锁：第 0 关常开，其余需通关上一星 */
+/** 第 level 关是否已解锁：第 0 关常开，其余通关上一关（0 星也算通关）即解锁 */
 export function isUnlocked(level: number): boolean {
   if (level <= 0) return true
-  return (loadSave().results[level - 1]?.stars ?? 0) > 0
+  return loadSave().results[level - 1] !== undefined
 }
 
 export const TOTAL_LEVELS = 5

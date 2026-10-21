@@ -112,6 +112,25 @@ export class PlayScene extends Phaser.Scene {
     this.good = 0
     this.miss = 0
 
+    // ===== 重置模式状态（scene.start 会复用同一场景实例，字段不会自动清零）=====
+    this.tapNotes = []
+    this.tapViews = []
+    this.tapCursor = 0
+    this.frogOpenUntil = 0
+    this.laneNotes = []
+    this.laneViews = []
+    this.laneCursor = 0
+    this.laneKeys = []
+    this.laneGlow = [0, 0, 0, 0]
+    this.rounds = []
+    this.roundIndex = 0
+    this.phase = 'idle'
+    this.cueIndex = 0
+    this.inputIndex = 0
+    this.padImages = []
+    this.padFlash = []
+    this.roundResults = []
+
     // ============ 模式布置 ============
     if (this.level.mode === 'tap') {
       const plan = this.level.plan

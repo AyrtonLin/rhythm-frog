@@ -3,7 +3,7 @@
  */
 import Phaser from 'phaser'
 import { audio } from '../core/audio'
-import { getBest, isUnlocked, recordResult } from '../core/save'
+import { getBest, recordResult } from '../core/save'
 import { LEVELS } from '../game/levels'
 import { buttonBg } from '../game/art'
 import type { ResultData } from './PlayScene'
@@ -109,15 +109,25 @@ export class ResultScene extends Phaser.Scene {
       btn.on('pointerdown', cb)
     }
 
-    const hasNext = data.level + 1 < LEVELS.length && isUnlocked(data.level + 1)
-    const unlockedNext = data.stars > 0 && data.level + 1 < LEVELS.length
+    // 下一关按钮：通关（含 0 星）即解锁，不再要求星级
+    const hasNext = data.level + 1 < LEVELS.length
 
     mkButton(630, '再来一次', 0x4cc9f0, () => this.scene.start('play', { level: data.level }))
-    if (hasNext || unlockedNext) {
+    if (hasNext) {
       mkButton(700, '下一关 ▶', 0xf26d85, () => this.scene.start('play', { level: data.level + 1 }))
       mkButton(764, '回选关', 0x747a99, () => this.scene.start('select'))
     } else {
       mkButton(700, '回选关', 0x747a99, () => this.scene.start('select'))
+    }
+    // 0 星时的鼓励提示（下一关仍然可以进）
+    if (hasNext && data.stars === 0) {
+      this.add
+        .text(GAME_W / 2, 588, '差一点点！再来一次拿星星吧（下一关已解锁）', {
+          fontFamily: 'Arial, sans-serif',
+          fontSize: '16px',
+          color: '#ffd166',
+        })
+        .setOrigin(0.5)
     }
 
     // 点击音效
